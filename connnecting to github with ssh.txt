@@ -1,0 +1,32 @@
+Connecting to GitHub with SSH
+You can connect to GitHub using SSH.
+
+About SSH
+Using the SSH protocol, you can connect and authenticate to remote servers and services. With SSH keys, you can connect to GitHub without supplying your username or password at each visit.
+
+
+Checking for existing SSH keys
+Before you generate an SSH key, you can check to see if you have any existing SSH keys.
+$ ls -al ~/.ssh
+查看主目录下的.ssh文件是否有密钥对（如id_rsa和id_rsa.pub）
+
+Generating a new SSH key and adding it to the ssh-agent
+After you've checked for existing SSH keys, you can generate a new SSH key to use for authentication, then add it to the ssh-agent.
+$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+
+Adding a new SSH key to your GitHub account
+To configure your GitHub account to use your new (or existing) SSH key, you'll also need to add it to your GitHub account.
+$ eval $(ssh-agent -s)
+$ ssh-add ~/.ssh/id_rsa
+$ clip < ~/.ssh/id_rsa.pub将公钥复制到剪切板上用于后面的粘贴。
+
+
+Testing your SSH connection
+After you've set up your SSH key and added it to your GitHub account, you can test your connection.
+$ ssh -T git@github.com
+Hi Masjid1! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+Working with SSH key passphrases
+You can secure your SSH keys and configure an authentication agent so that you won't have to reenter your passphrase every time you use your SSH keys.
